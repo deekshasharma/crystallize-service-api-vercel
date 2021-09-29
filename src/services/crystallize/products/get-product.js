@@ -9,7 +9,6 @@ const CRYSTALLIZE_ACCESS_TOKEN_SECRET =
   process.env.CRYSTALLIZE_ACCESS_TOKEN_SECRET;
 
 module.exports = async function getThisProduct({ query, variables }) {
-  console.log("Inside getThisProduct ", variables)
   const body = JSON.stringify(safePathQuery({ query, variables }));
   const response = await fetch(`${CRYSTALLIZE_PUBLIC_API_URL}/${CRYSTALLIZE_TENANT_IDENTIFIER}/catalogue`, {
     method: 'post',

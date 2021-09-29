@@ -91,8 +91,33 @@ function normaliseOrderModel({ customer, cart, total, ...rest }) {
   };
 }
 
+function safePathQuery({ variables, ...rest }) {
+  if (variables && 'path' in variables) {
+    const safePath = (variables.path || '')
+      .split('?')[0]
+      .split('#')[0]
+      .replace(/\/$/, '');
+
+    return {
+      variables: {
+        ...variables,
+        path: safePath
+      },
+      ...rest
+    };
+  }
+
+  return {
+    variables,
+    ...rest
+  };
+}
+
+
+
 module.exports = {
   normaliseOrderModel,
+  safePathQuery,
 
   /**
    * Catalogue API is the fast read-only API to query frontend
